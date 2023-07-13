@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
 
-QTABLE_ID = "default-2023-07-13-04-55-10"
+QTABLE_ID = "default-2023-07-13-08-51-31"
 
 # REWARDS
 rewards = pd.Series(np.load(f"../results/{QTABLE_ID}/rewards.npy"))

@@ -112,6 +112,7 @@ for episode in range(config.EPISODES):
 
         if config.EXPLORATION > 0.0:
             if config.EPISODES // 5 <= episode <= config.START_EXPLORING:
+                np.save(f"{QTABLES_DIR}/exploited.npy", q_table)
                 print("started exploring!")
                 config.START_EXPLORING = episode
                 config.EXPLORATION_DECAY = config.EXPLORATION / (config.END_EXPLORING - config.START_EXPLORING)

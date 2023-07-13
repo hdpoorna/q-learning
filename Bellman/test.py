@@ -17,7 +17,7 @@ config.OBS_HIGHS = env.observation_space.high
 config.OBS_LOWS = env.observation_space.low
 
 # load q table
-QTABLE_ID = "default-2023-07-13-04-55-10"
+QTABLE_ID = "default-2023-07-13-08-51-31"
 q_table = load_q_table(f"q_tables/{QTABLE_ID}/final.npy")
 config.NUM_BUCKETS = list(q_table.shape[:-1])
 config.BUCKET_SIZES = (config.OBS_HIGHS - config.OBS_LOWS)/config.NUM_BUCKETS
