@@ -1,0 +1,18 @@
+
+# pycharm
+.idea/
+
+# cache
+**/__pycache__/
+
+# old results
+Bellman/old/
+Bellman/q_tables/old
+Bellman/results/old
+
+# archived
+*.rar
+*.zip
+
+#future
+DQN/
