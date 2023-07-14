@@ -4,6 +4,7 @@
 
 - [Updating a Q-table with the Bellman equation](Bellman/train.py)
 - [Deep Q-Networks](DQN/train.py)
+- Grid World (upcoming)
 
 ### References
 - [Gymnasium Documentation](https://gymnasium.farama.org/)
