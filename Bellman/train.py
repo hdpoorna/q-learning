@@ -39,6 +39,10 @@ make_dir(QTABLES_DIR)
 make_dir(RESULTS_DIR)
 
 
+# write configs to txt
+write_to_txt(config.QTABLE_ID)
+
+
 def select_action(state_bucket, episode):
     if config.EXPLORATION > 0.0:
         if config.START_EXPLORING <= episode <= config.END_EXPLORING:

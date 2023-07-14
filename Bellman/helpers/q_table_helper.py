@@ -38,3 +38,36 @@ def make_dir(dir_path):
         os.makedirs(dir_path)
         print(f"created directory {dir_path}")
 
+
+def config_to_lines():
+
+    config_path = os.path.join("helpers", "config.py")
+
+    with open(config_path, "r") as f:
+        config_lines = f.readlines()
+
+    return config_lines[5:]
+
+
+def write_to_txt(q_tabel_id):
+
+    config_lines = config_to_lines()
+
+    config_max_len = len(max(config_lines, key=len))
+
+    results_dir = os.path.join("results", "{}".format(q_tabel_id))
+    make_dir(results_dir)
+
+    txt_path = os.path.join(results_dir, "{}.txt".format(q_tabel_id))
+
+    with open(txt_path, "w") as f:
+        # write model_id
+        f.write("\nMODEL_ID: {}\n".format(q_tabel_id))
+        f.write("\n{}\n".format("-" * config_max_len))
+
+        # write config
+        f.write("\nCONFIG\n")
+        f.write("".join(config_lines))
+        f.write("\n{}\n".format("-" * config_max_len))
+
+    print("Text file saved to {}".format(txt_path))

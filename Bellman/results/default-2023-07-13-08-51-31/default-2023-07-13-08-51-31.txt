@@ -1,0 +1,33 @@
+
+MODEL_ID: default-2023-07-13-08-51-31
+
+------------------------------------------------------------------
+
+CONFIG
+QTABLE_ID = "default"
+
+DISCOUNT = 0.95
+EPISODES = 10000
+
+LEARNING_RATE = 0.1
+
+NUM_ACTIONS = None
+OBS_HIGHS = None
+OBS_LOWS = None
+NUM_BUCKETS = None
+BUCKET_SIZES = None
+ALL_ACTIONS = None
+GOAL_POSITION = None
+
+EXPLORATION = 0.9
+START_EXPLORING = 2 * (EPISODES//4)
+END_EXPLORING = 3*(EPISODES//4)
+EXPLORATION_DECAY = EXPLORATION/(END_EXPLORING - START_EXPLORING)
+EPS_HIGH = 0.95
+EPS_LOW = 0.05
+
+GOAL_REWARD = 200
+QTABLE_SAVE_LOOKBACK = EPISODES // 100
+QTABLE_SAVE_PERIOD = 1000
+
+------------------------------------------------------------------
