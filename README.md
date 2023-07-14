@@ -3,7 +3,7 @@
 ### Experimenting With Multiple Reinforcement Learning Environments and Approaches
 
 - [Updating a Q-table with the Bellman equation](Bellman/train.py)
-- Deep Q-Networks (upcoming)
+- [Deep Q-Networks](DQN/train.py)
 
 ### References
 - [Gymnasium Documentation](https://gymnasium.farama.org/)
