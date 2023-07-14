@@ -144,6 +144,3 @@ def write_to_txt(model_id, model_summary):
 
 if __name__ == "__main__":
     buffer = ReplayBuffer(buffer_size=32)
-    pass
-
-
