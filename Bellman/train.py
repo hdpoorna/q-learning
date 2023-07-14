@@ -46,7 +46,6 @@ write_to_txt(config.QTABLE_ID)
 def select_action(state_bucket, episode):
     if config.EXPLORATION > 0.0:
         if config.START_EXPLORING <= episode <= config.END_EXPLORING:
-            # config.EXPLORATION = max(0, config.EXPLORATION - config.EXPLORATION_DECAY)
             if np.random.random() <= config.EXPLORATION:
                 action = np.random.choice(config.ALL_ACTIONS, 1)[0]
             else:

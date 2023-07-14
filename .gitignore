@@ -6,13 +6,11 @@
 **/__pycache__/
 
 # old results
-Bellman/old/
-Bellman/q_tables/old
-Bellman/results/old
+**/old/
 
 # archived
 *.rar
 *.zip
 
-#future
-DQN/
+# jupyter noteboks
+*.ipynb
