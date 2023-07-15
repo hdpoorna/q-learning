@@ -4,6 +4,7 @@ hdpoorna
 """
 
 # import packages
+import shutil
 import numpy as np
 import cv2
 
@@ -17,7 +18,7 @@ class GridWorld:
         "AGENT": (0, 0, 255)
     }
     MOVE_REWARD = -1.0
-    MAX_FPS = 100
+    MAX_FPS = 100       # <= 1000
 
     def __init__(self, side=8):
         self._side = side
@@ -131,10 +132,26 @@ class GridWorld:
         else:
             return False
 
+    def __repr__(self):
+        out_str = f"\nside: {self._side}"
+        if self._agent is not None:
+            out_str = f"{out_str}\nwall: {self._wall}\ngoal: {self._goal}\nagent: {self._agent}\n"
+            terminal_size = shutil.get_terminal_size()
+            if terminal_size.columns >= self._side:
+                world = np.broadcast_to(np.array(["_"], dtype=str), shape=(self._side, self._side)).copy()
+                world[*self._wall] = "W"
+                world[*self._goal] = "G"
+                world[*self._agent] = "A"
+                for row in world:
+                    row_str = "|".join(row)
+                    out_str = f"{out_str}\n|{row_str}|"
+        return out_str
+
 
 if __name__ == "__main__":
     env = GridWorld()
     obs, _ = env.reset()
+    print(env)
 
     terminated = False
     truncated = False
