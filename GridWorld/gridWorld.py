@@ -21,6 +21,9 @@ class GridWorld:
     MAX_FPS = 100       # <= 1000
 
     def __init__(self, side=8):
+
+        assert side >= 2, "side >= 2"
+
         self._side = side
         self.step_limit = 2 * (self._side ** 2)
         self.wall_reward = -self.step_limit
@@ -153,9 +156,9 @@ if __name__ == "__main__":
     obs, _ = env.reset()
     print(env)
 
-    terminated = False
-    truncated = False
-
-    while not (terminated or truncated):
-        _, _, terminated, truncated, _ = env.step(np.random.randint(low=0, high=4, size=(1,), dtype=int))
-        env.render()
+    # terminated = False
+    # truncated = False
+    #
+    # while not (terminated or truncated):
+    #     _, _, terminated, truncated, _ = env.step(np.random.randint(low=0, high=4, size=(1,), dtype=int))
+    #     env.render()
