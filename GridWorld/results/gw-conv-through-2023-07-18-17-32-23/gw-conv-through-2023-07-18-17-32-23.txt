@@ -1,0 +1,74 @@
+
+MODEL_ID: gw-conv-through-2023-07-18-17-32-23
+
+-----------------------------------------------------------------
+
+MODEL_SUMMARY
+Model: "ConvModel"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ conv2d (Conv2D)             (None, 6, 6, 64)          1792      
+                                                                 
+ batch_normalization (BatchN  (None, 6, 6, 64)         256       
+ ormalization)                                                   
+                                                                 
+ conv2d_1 (Conv2D)           (None, 4, 4, 128)         73856     
+                                                                 
+ batch_normalization_1 (Batc  (None, 4, 4, 128)        512       
+ hNormalization)                                                 
+                                                                 
+ conv2d_2 (Conv2D)           (None, 2, 2, 256)         295168    
+                                                                 
+ batch_normalization_2 (Batc  (None, 2, 2, 256)        1024      
+ hNormalization)                                                 
+                                                                 
+ flatten (Flatten)           (None, 1024)              0         
+                                                                 
+ dense (Dense)               (None, 256)               262400    
+                                                                 
+ dense_1 (Dense)             (None, 128)               32896     
+                                                                 
+ dense_2 (Dense)             (None, 64)                8256      
+                                                                 
+ action_q (Dense)            (None, 4)                 260       
+                                                                 
+=================================================================
+Total params: 676,420
+Trainable params: 675,524
+Non-trainable params: 896
+_________________________________________________________________
+CONFIG
+MODEL_ID = "gw-conv-through"
+
+BATCH_SIZE = 64
+DISCOUNT = 0.99
+EPISODES = 1000
+
+LEARNING_RATE = 1e-4
+TARGET_NET_LR = 0.005
+
+MAX_TIME_STEPS = None
+NUM_ACTIONS = None
+OBS_HIGHS = None
+OBS_LOWS = None
+NUM_BUCKETS = None
+BUCKET_SIZES = None
+ALL_ACTIONS = None
+GOAL_POSITION = None
+NUM_OBS = None
+
+# exploration
+# EPS_START = 0.95
+EPS_END = 0.05
+# EPS_DECAY = 1000
+
+EXPLORATION = 0.9
+START_EXPLORING = 0               # 2*(EPISODES//4)
+END_EXPLORING = 2*(EPISODES//3)   # 3*(EPISODES//4)
+EXPLORATION_DECAY = EXPLORATION/(END_EXPLORING - START_EXPLORING)
+
+GOAL_REWARD = None
+MODEL_SAVE_LOOKBACK = EPISODES//100
+
+-----------------------------------------------------------------

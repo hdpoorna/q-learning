@@ -219,7 +219,7 @@ class GridWorld:
 
 
 if __name__ == "__main__":
-    env = GridWorld()
+    env = GridWorld(wall_rule=WallRule.THROUGH)
     env.MAX_FPS = 24
     obs, _ = env.reset()
     print(env)
