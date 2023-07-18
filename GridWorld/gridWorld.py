@@ -4,9 +4,16 @@ hdpoorna
 """
 
 # import packages
+from enum import Enum
 import shutil
 import numpy as np
 import cv2
+
+
+class WallRule(Enum):
+    TERMINATE = 0
+    PENALIZE = 1
+    THROUGH = 2
 
 
 class GridWorld:
@@ -20,15 +27,23 @@ class GridWorld:
     MOVE_REWARD = -1.0
     MAX_FPS = 100       # <= 1000
 
-    def __init__(self, side=8):
+    def __init__(self, side=8, oob_rule: WallRule = WallRule.THROUGH, wall_rule: WallRule = WallRule.THROUGH):
 
         assert side >= 2, "side >= 2"
+        assert isinstance(oob_rule, WallRule), "oob_rule should be of type WallRule"
+        assert isinstance(wall_rule, WallRule), "wall_rule should be of type WallRule"
 
         self._side = side
-        self.step_limit = 2 * (self._side ** 2)
-        self.wall_reward = -self.step_limit
-        self.oob_reward = -self.step_limit      # out of bounds
-        self.goal_reward = self.step_limit
+        self._oob_rule = oob_rule
+        self._wall_rule = wall_rule
+
+        self.step_limit = 2 * (self._side * 2)
+
+        self.oob_reward = 0.0      # out of bounds
+        self.wall_reward = 0.0
+        self.goal_reward = 0.0
+
+        self.set_rewards()
 
         self._wall = None
         self._goal = None
@@ -38,6 +53,35 @@ class GridWorld:
 
         self._terminated = None
         self._truncated = None
+
+    def set_rewards(self):
+
+        if self._oob_rule == WallRule.TERMINATE:
+            assert self._wall_rule == WallRule.TERMINATE, "oob severity is higher than wall"
+            self.oob_reward = float(-self.step_limit)
+            self.wall_reward = float(-self.step_limit)
+            self.goal_reward = 2.0 * float(self.step_limit)
+        elif self._oob_rule == WallRule.PENALIZE:
+            assert self._wall_rule in [WallRule.TERMINATE, WallRule.PENALIZE], "oob severity is higher than wall"
+            self.oob_reward = 0.1 * float(-self.step_limit)
+            self.goal_reward = 2.0 * (-self.oob_reward) * self.step_limit
+            if self._wall_rule == WallRule.TERMINATE:
+                self.wall_reward = self.oob_reward * self.step_limit
+            elif self._wall_rule == WallRule.PENALIZE:
+                self.wall_reward = self.oob_reward
+        else:
+            # self.oob_reward = WallRule.THROUGH
+            self.oob_reward = 0.0
+            if self._wall_rule == WallRule.TERMINATE:
+                self.wall_reward = float(-self.step_limit)
+                self.goal_reward = 2.0 * float(self.step_limit)
+            elif self._wall_rule == WallRule.PENALIZE:
+                self.wall_reward = 0.1 * float(-self.step_limit)
+                self.goal_reward = 2.0 * (-self.wall_reward) * self.step_limit
+            else:
+                # self._wall_rule = WallRule.THROUGH
+                self.wall_reward = 0.0
+                self.goal_reward = float(self.step_limit)
 
     def reset(self):
         self._wall = np.random.randint(low=0, high=self._side, size=(2,), dtype=int)
@@ -66,6 +110,8 @@ class GridWorld:
 
         self._step_count += 1
 
+        previous_state = self._agent.copy()
+
         reward = self.MOVE_REWARD
         info = "default"
 
@@ -84,9 +130,15 @@ class GridWorld:
             self._agent += [0, -1]
 
         # checking out of bounds
-        if self._is_oob(self._agent):
-            self._terminated = True
-            reward = self.oob_reward
+        is_oob, wrapped = self._is_oob(self._agent)
+        if is_oob:
+            if self._oob_rule == WallRule.TERMINATE:
+                self._terminated = True
+            elif self._oob_rule == WallRule.PENALIZE:
+                self._agent = previous_state
+            elif self._oob_rule == WallRule.THROUGH:
+                self._agent = wrapped
+            reward += self.oob_reward
             info = "out of bounds"
 
         # checking step limit
@@ -96,14 +148,19 @@ class GridWorld:
 
         # checking if the goal was achieved
         if np.all(self._agent == self._goal):
-            reward = self.goal_reward
+            reward += self.goal_reward
             self._terminated = True
             info = "goal achieved"
 
         # checking if the player hit the wall
         if np.all(self._agent == self._wall):
-            reward = self.wall_reward
-            self._terminated = True
+            if self._wall_rule == WallRule.TERMINATE:
+                self._terminated = True
+            elif self._wall_rule == WallRule.PENALIZE:
+                self._agent = previous_state
+            elif self._wall_rule == WallRule.THROUGH:
+                pass
+            reward += self.wall_reward
             info = "hit the wall"
 
         return self._make_rgb_img(), reward, self._terminated, self._truncated, info
@@ -120,20 +177,30 @@ class GridWorld:
 
     def _make_rgb_img(self):
         img_rgb = np.zeros((self._side, self._side, 3), dtype=np.uint8)
-        img_rgb[*self._wall] = self._COLORS_RGB["WALL"]
-        img_rgb[*self._goal] = self._COLORS_RGB["GOAL"]
-        if not self._is_oob(self._agent):
-            img_rgb[*self._agent] = self._COLORS_RGB["AGENT"]
+        if self._wall_rule != WallRule.THROUGH:
+            img_rgb[tuple(self._wall)] = self._COLORS_RGB["WALL"]
+        img_rgb[tuple(self._goal)] = self._COLORS_RGB["GOAL"]
+        is_obb, _ = self._is_oob(self._agent)
+        if not is_obb:
+            img_rgb[tuple(self._agent)] = self._COLORS_RGB["AGENT"]
         return img_rgb
 
     def _is_oob(self, state):
         # out of bounds
-        if (state[0] < 0) or (state[0] > self._side - 1):
-            return True
-        elif state[1] < 0 or state[1] > self._side-1:
-            return True
+        if state[0] < 0:
+            wrapped = state + [self._side, 0]
+            return True, wrapped
+        elif state[0] > self._side-1:
+            wrapped = state + [-self._side, 0]
+            return True, wrapped
+        elif state[1] < 0:
+            wrapped = state + [0, self._side]
+            return True, wrapped
+        elif state[1] > self._side-1:
+            wrapped = state + [0, -self._side]
+            return True, wrapped
         else:
-            return False
+            return False, state
 
     def __repr__(self):
         out_str = f"\nside: {self._side}"
@@ -142,9 +209,9 @@ class GridWorld:
             terminal_size = shutil.get_terminal_size()
             if terminal_size.columns >= self._side:
                 world = np.broadcast_to(np.array(["_"], dtype=str), shape=(self._side, self._side)).copy()
-                world[*self._wall] = "W"
-                world[*self._goal] = "G"
-                world[*self._agent] = "A"
+                world[tuple(self._wall)] = "W"
+                world[tuple(self._goal)] = "G"
+                world[tuple(self._agent)] = "A"
                 for row in world:
                     row_str = "|".join(row)
                     out_str = f"{out_str}\n|{row_str}|"
@@ -153,12 +220,13 @@ class GridWorld:
 
 if __name__ == "__main__":
     env = GridWorld()
+    env.MAX_FPS = 24
     obs, _ = env.reset()
     print(env)
 
-    # terminated = False
-    # truncated = False
-    #
-    # while not (terminated or truncated):
-    #     _, _, terminated, truncated, _ = env.step(np.random.randint(low=0, high=4, size=(1,), dtype=int))
-    #     env.render()
+    terminated = False
+    truncated = False
+
+    while not (terminated or truncated):
+        _, _, terminated, truncated, _ = env.step(np.random.randint(low=0, high=4, size=(1,), dtype=int))
+        env.render()

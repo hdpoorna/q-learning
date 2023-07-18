@@ -16,7 +16,7 @@ x = list(range(0, len(rewards), 1))
 
 window_size = len(rewards)//100
 
-rewards = pd.concat([pd.Series(np.zeros(window_size-1)-200.0), rewards])
+rewards = pd.concat([pd.Series(np.zeros(window_size-1)-rewards.min()), rewards])
 windows = rewards.rolling(window=window_size, step=1)
 # windows = rewards.rolling(window=window_size, step=window_size)
 
