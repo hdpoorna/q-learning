@@ -1,0 +1,7 @@
+
+gymnasium[atari,accept-rom-license]
+numpy
+pandas
+matplotlib
+tensorflow
+tqdm

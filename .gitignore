@@ -17,4 +17,6 @@
 *.ipynb
 
 # upcoming
-# GridWorld/
+# Pong/
+Pong/results
+Pong/saved_models
