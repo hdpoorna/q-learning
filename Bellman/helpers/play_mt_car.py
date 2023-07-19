@@ -20,5 +20,5 @@ key_action_map = {
     "d": 2
 }
 
-play(env, keys_to_action=key_action_map)
+play(env, keys_to_action=key_action_map, noop=1)
 
