@@ -47,6 +47,11 @@ def ConvModel(side=8, n_actions=4, zero_padding=True, batch_norm=False, dropout_
             assert side >= 5, "side>=5 for convolution"
         padding = "valid"
 
+    data_format = "channels_last"
+
+    conv_filters = [64, 128, 256]
+    fc_units = [256, 128, 64]
+
     if init_weights_with == "random_normal":
         initializer = tf.keras.initializers.RandomNormal(mean=-1.0, stddev=0.5)
     elif init_weights_with == "random_uniform":
@@ -57,33 +62,32 @@ def ConvModel(side=8, n_actions=4, zero_padding=True, batch_norm=False, dropout_
     model = tf.keras.Sequential(name="ConvModel")
     model.add(tf.keras.Input(shape=(side, side, 3), name="state"))
 
-    model.add(tf.keras.layers.Conv2D(filters=64, kernel_size=(3, 3), strides=(1, 1), padding=padding, data_format="channels_last", activation="relu", kernel_initializer=initializer))
+    model.add(tf.keras.layers.Conv2D(filters=conv_filters[0], kernel_size=(3, 3), strides=(1, 1), padding=padding, data_format=data_format, activation="relu", kernel_initializer=initializer))
     if batch_norm:
         model.add(tf.keras.layers.BatchNormalization())
 
-    model.add(tf.keras.layers.Conv2D(filters=128, kernel_size=(3, 3), strides=(1, 1), padding=padding,
-                                     data_format="channels_last", activation="relu", kernel_initializer=initializer))
+    model.add(tf.keras.layers.Conv2D(filters=conv_filters[1], kernel_size=(3, 3), strides=(1, 1), padding=padding,
+                                     data_format=data_format, activation="relu", kernel_initializer=initializer))
     if batch_norm:
         model.add(tf.keras.layers.BatchNormalization())
 
-    if deeper:
-        model.add(tf.keras.layers.Conv2D(filters=256, kernel_size=(3, 3), strides=(1, 1), padding=padding,
-                                         data_format="channels_last", activation="relu", kernel_initializer=initializer))
-        if batch_norm:
-            model.add(tf.keras.layers.BatchNormalization())
+    model.add(tf.keras.layers.Conv2D(filters=conv_filters[2], kernel_size=(3, 3), strides=(1, 1), padding=padding,
+                                     data_format=data_format, activation="relu", kernel_initializer=initializer))
+    if batch_norm:
+        model.add(tf.keras.layers.BatchNormalization())
 
-    model.add(tf.keras.layers.Flatten(data_format="channels_last"))
+    model.add(tf.keras.layers.Flatten(data_format=data_format))
 
     if deeper:
-        model.add(tf.keras.layers.Dense(256, activation="relu", kernel_initializer=initializer))
+        model.add(tf.keras.layers.Dense(fc_units[0], activation="relu", kernel_initializer=initializer))
         if dropout_rate > 0.0:
             model.add(tf.keras.layers.Dropout(dropout_rate))
 
-    model.add(tf.keras.layers.Dense(128, activation="relu", kernel_initializer=initializer))
+    model.add(tf.keras.layers.Dense(fc_units[1], activation="relu", kernel_initializer=initializer))
     if dropout_rate > 0.0:
         model.add(tf.keras.layers.Dropout(dropout_rate))
 
-    model.add(tf.keras.layers.Dense(64, activation="relu", kernel_initializer=initializer))
+    model.add(tf.keras.layers.Dense(fc_units[2], activation="relu", kernel_initializer=initializer))
     if dropout_rate > 0.0:
         model.add(tf.keras.layers.Dropout(dropout_rate))
 
@@ -169,4 +173,4 @@ def write_to_txt(model_id, model_summary):
 
 if __name__ == "__main__":
     buffer = ReplayBuffer(buffer_size=32)
-    model = ConvModel(zero_padding=False, deeper=True, batch_norm=True)
+    model = ConvModel(zero_padding=False, deeper=False, batch_norm=True)
