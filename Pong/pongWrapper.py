@@ -11,9 +11,10 @@ import gymnasium as gym
 
 class PongWrapper:
 
+    _DEFAULT_REWARD = 0.0
     _LOWEST_SIDE = 40
     _ACTION_SPACE_SIZE = 3
-    _AVG_STEP_LIMIT_PER_POINT = 200
+    _AVG_STEP_LIMIT_PER_POINT = 500
     _ACTION_MAP = {
         0: 0,   # NOOP
         1: 2,   # UP
@@ -92,9 +93,20 @@ class PongWrapper:
 
         obs, reward, self._terminated, self._truncated, info = self._env.step(self._ACTION_MAP[action])
 
-        if reward != 0.0:
-            self._episode_tot_abs_reward += 1
-            # self._terminated = True
+        reward = float(reward)
+        if self._DEFAULT_REWARD == 1.0:
+            new_reward = 1.0
+            if reward > 0.0:
+                self._episode_tot_abs_reward += 1
+                new_reward += self._AVG_STEP_LIMIT_PER_POINT
+                # self._terminated = True
+            elif reward < 0.0:
+                self._episode_tot_abs_reward += 1
+                new_reward -= self._AVG_STEP_LIMIT_PER_POINT
+            reward = new_reward
+        else:
+            if reward != 0.0:
+                self._episode_tot_abs_reward += 1
 
         if self._episode_tot_abs_reward >= self._points_per_episode:
             self._truncated = True
@@ -149,9 +161,10 @@ if __name__ == "__main__":
         opp = np.count_nonzero(obs[:, :, 0]) - ball
         agent = np.count_nonzero(obs[:, :, 2]) - ball
         print(f"agent: {agent}, opp:{opp}, ball:{ball}")
+        # print(reward)
         steps += 1
         env.render_cv(obs)
-        if reward != 0.0:
+        if reward != env._DEFAULT_REWARD:
             print(steps)
             # env.reset()
             steps = 0

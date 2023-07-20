@@ -1,0 +1,40 @@
+"""
+py311
+hdpoorna
+"""
+
+MODEL_ID = "pong-conv-default"
+
+# CONTINUE_MODEL = "saved_models/pong-conv-default-2023-07-19-16-41-16/model-final"
+CONTINUE_MODEL = None
+
+BATCH_SIZE = 64
+DISCOUNT = 0.99
+EPISODES = 300
+POINTS_PER_EPISODE = 1
+
+LEARNING_RATE = 1e-4        # if continuing: 1e-5
+TARGET_NET_LR = 0.005
+
+MAX_TIME_STEPS = None
+NUM_ACTIONS = None
+OBS_HIGHS = None
+OBS_LOWS = None
+NUM_BUCKETS = None
+BUCKET_SIZES = None
+ALL_ACTIONS = None
+GOAL_POSITION = None
+NUM_OBS = None
+
+# exploration
+# EPS_START = 0.95
+EPS_END = 0.05
+# EPS_DECAY = 1000
+
+EXPLORATION = 0.9
+START_EXPLORING = 0                     # 2*(EPISODES//4)
+END_EXPLORING = 2*(EPISODES//3)         # 3*(EPISODES//4)
+EXPLORATION_DECAY = EXPLORATION/(END_EXPLORING - START_EXPLORING)
+
+GOAL_REWARD = None
+MODEL_SAVE_LOOKBACK = EPISODES//100

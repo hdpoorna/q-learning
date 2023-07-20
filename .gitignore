@@ -8,6 +8,7 @@
 # old results
 **/old/
 **/success/
+**/other/
 
 # archived
 *.rar
@@ -18,5 +19,3 @@
 
 # upcoming
 # Pong/
-Pong/results
-Pong/saved_models
