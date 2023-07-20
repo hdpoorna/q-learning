@@ -57,20 +57,20 @@ def ConvModel(side=8, n_actions=4, zero_padding=True, batch_norm=False, dropout_
     model = tf.keras.Sequential(name="ConvModel")
     model.add(tf.keras.Input(shape=(side, side, 3), name="state"))
 
-    if deeper:
-        model.add(tf.keras.layers.Conv2D(filters=64, kernel_size=(3, 3), strides=(1, 1), padding=padding, data_format="channels_last", activation="relu", kernel_initializer=initializer))
-        if batch_norm:
-            model.add(tf.keras.layers.BatchNormalization())
+    model.add(tf.keras.layers.Conv2D(filters=64, kernel_size=(3, 3), strides=(1, 1), padding=padding, data_format="channels_last", activation="relu", kernel_initializer=initializer))
+    if batch_norm:
+        model.add(tf.keras.layers.BatchNormalization())
 
     model.add(tf.keras.layers.Conv2D(filters=128, kernel_size=(3, 3), strides=(1, 1), padding=padding,
                                      data_format="channels_last", activation="relu", kernel_initializer=initializer))
     if batch_norm:
         model.add(tf.keras.layers.BatchNormalization())
 
-    model.add(tf.keras.layers.Conv2D(filters=256, kernel_size=(3, 3), strides=(1, 1), padding=padding,
-                                     data_format="channels_last", activation="relu", kernel_initializer=initializer))
-    if batch_norm:
-        model.add(tf.keras.layers.BatchNormalization())
+    if deeper:
+        model.add(tf.keras.layers.Conv2D(filters=256, kernel_size=(3, 3), strides=(1, 1), padding=padding,
+                                         data_format="channels_last", activation="relu", kernel_initializer=initializer))
+        if batch_norm:
+            model.add(tf.keras.layers.BatchNormalization())
 
     model.add(tf.keras.layers.Flatten(data_format="channels_last"))
 
