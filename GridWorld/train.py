@@ -203,8 +203,8 @@ for episode in tqdm(range(config.EPISODES), ascii=True, unit="episodes"):
                     config.START_EXPLORING = episode
                     config.EXPLORATION_DECAY = config.EXPLORATION / (config.END_EXPLORING - config.START_EXPLORING)
 
-# env.close()
-
 model_dir_path = os.path.join(MODELS_DIR, f"model-final")
 tf.saved_model.save(policy_model, model_dir_path)
 print("final model saved!")
+
+env.close()

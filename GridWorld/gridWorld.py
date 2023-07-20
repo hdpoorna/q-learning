@@ -101,6 +101,19 @@ class GridWorld:
 
         return self._make_rgb_img(), "initial state"
 
+    def close(self):
+
+        assert self._agent is not None, "reset method should be called first to initialize the environment"
+
+        self._wall = None
+        self._goal = None
+        self._agent = None
+
+        self._step_count = None
+
+        self._terminated = None
+        self._truncated = None
+
     def step(self, action):
 
         assert self._agent is not None, "reset method should be called first to initialize the environment"

@@ -40,5 +40,5 @@ while not (terminated or truncated):
     env.render()
     current_state = obs
 
-# env.close()
+env.close()
 
