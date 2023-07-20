@@ -35,7 +35,7 @@ class ReplayBuffer:
         return len(self.buffer)
 
 
-def ConvModel(side=8, n_actions=4, zero_padding=True, batch_norm=False, dropout_rate=0.0, deeper=False, init_weights_with="glorot_uniform"):
+def ConvModel(side=8, n_actions=4, zero_padding=False, batch_norm=True, dropout_rate=0.0, deeper=True, init_weights_with="glorot_uniform"):
 
     if zero_padding:
         assert side >= 3, "side>=3 for convolution"
