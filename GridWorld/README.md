@@ -54,7 +54,7 @@ The above commands will do the following.
 |          exploration rate          | ![](results/gw-conv-through-2023-07-18-17-32-23/explorations.svg) |
 |     loss <br/>(episode stats)      |     ![](results/gw-conv-through-2023-07-18-17-32-23/loss.svg)     |
 
-By exploring, default configurations found a better solution.
+It seems the model can be further trained. However, [Google Colab](https://colab.research.google.com) compute time limits had to be concerned.
 
 ### Notes
 - [gridWorld.py](gridWorld.py) can be used to initially explore the environment.
