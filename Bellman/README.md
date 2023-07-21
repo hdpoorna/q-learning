@@ -28,3 +28,4 @@ _(Assuming the requirements are fulfilled)_
 ```
 python test.py
 ```
+The above commands will load the trained default Q-table and play 1 game.
