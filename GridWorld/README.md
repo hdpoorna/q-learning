@@ -5,7 +5,7 @@ A [custom environment](gridWorld.py) was made.
 - Goal (G): Green
 - Wall (W): Red (optional)
 
-### Results
+### Environment
 
 | ![](results/gw-conv-through-2023-07-18-17-32-23/2023-07-21-12-29-52.gif) | ![](results/gridWorld.png) |
 |:------------------------------------------------------------------------:|:--------------------------:|
@@ -82,4 +82,3 @@ You can play by using the [play](gridWorld.py?plain=1#L194) method in `GridWorld
   - d: right
   - s: down
   - a: left
-- 
