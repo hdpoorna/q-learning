@@ -1,14 +1,14 @@
 # Grid World
 
 A [custom environment](gridWorld.py) was made.
-- Agent: Blue
-- Goal: Green
-- Wall: Red (optional)
+- Agent (A): Blue
+- Goal (G): Green
+- Wall (W): Red (optional)
 
 ### Results
 
-| ![](results/gw-conv-through-2023-07-18-17-32-23/2023-07-21-12-29-52.gif) | ![](results/gw-conv-through-2023-07-18-17-32-23/2023-07-21-12-47-52.gif) |
-|:------------------------------------------------------------------------:|:------------------------------------------------------------------------:|
+| ![](results/gw-conv-through-2023-07-18-17-32-23/2023-07-21-12-29-52.gif) | ![](results/gridWorld.png) |
+|:------------------------------------------------------------------------:|:--------------------------:|
 
 
 Look into the [Graphs](#graphs) section for more info.
@@ -60,3 +60,26 @@ By exploring, default configurations found a better solution.
 - [gridWorld.py](gridWorld.py) can be used to initially explore the environment.
 - [Deque](helpers/dqn_helper.py?plain=1#L20) (Double Ended Queue) and [Named-tuple](helpers/dqn_helper.py?plain=1#L15) data structures were used to record the transitions into a buffer.
 - [plot_graphs.py](helpers/plot_graphs.py) can be used to plot graphs from the `npy` files, and save them as `svg`.
+- You can print the environment by [printing the GridWorld instance](gridWorld.py?plain=1#L271-L274).
+    ```
+    |_|_|_|_|_|_|_|_|
+    |_|_|_|_|_|_|_|_|
+    |_|_|_|_|_|_|_|_|
+    |_|A|_|_|_|_|_|_|
+    |_|_|_|_|_|_|_|_|
+    |_|_|_|_|_|_|_|_|
+    |_|_|_|_|_|_|_|G|
+    |_|_|_|_|_|_|W|_|
+    ```
+
+### Play
+You can play by using the [play](gridWorld.py?plain=1#L194) method in `GridWorld` class.
+- [Initialize](gridWorld.py?plain=1#L271-L279) the environment.
+- Set the `MODE` to `PLAY`, if you're using `gridWorld.py` file itself as the entry point.
+- Call `play` method.
+- key: action map
+  - w: up
+  - d: right
+  - s: down
+  - a: left
+- 

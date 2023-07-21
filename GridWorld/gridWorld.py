@@ -4,6 +4,7 @@ hdpoorna
 """
 
 # import packages
+import time
 from enum import Enum
 import shutil
 import numpy as np
@@ -26,7 +27,7 @@ class GridWorld:
         "AGENT": (0, 0, 255)        # blue
     }
     MOVE_REWARD = -1.0
-    MAX_FPS = 100       # <= 1000
+    MAX_FPS = 6       # <= 1000
 
     def __init__(self, side=8, oob_rule: WallRule = WallRule.THROUGH, wall_rule: WallRule = WallRule.THROUGH):
 
@@ -190,6 +191,39 @@ class GridWorld:
         cv2.waitKey(1000//self.MAX_FPS)
         return img_rgb
 
+    def play(self):
+
+        assert self._agent is not None, "reset method should be called first to initialize the environment"
+        assert not self._terminated, "The episode was terminated. Call reset method to re-initialize."
+        assert not self._truncated, "The episode timed out. Call reset method to re-initialize."
+
+        info = None
+
+        while True:
+
+            img_rgb = self._make_rgb_img()
+            img_rgb = cv2.resize(img_rgb, (256, 256), interpolation=cv2.INTER_NEAREST)
+            img_bgr = cv2.cvtColor(img_rgb, cv2.COLOR_RGB2BGR)
+            cv2.imshow("GridWorld", img_bgr)
+            k = cv2.waitKey(1000 // self.MAX_FPS)
+
+            if self._terminated or self._truncated:
+                print(info)
+                break
+
+            if k == 27:  # Esc key to stop
+                break
+            elif k == -1:  # normally -1 returned
+                continue
+            elif k == ord("w"):
+                _, _, _, _, info = self.step(0)
+            elif k == ord("d"):
+                _, _, _, _, info = self.step(1)
+            elif k == ord("s"):
+                _, _, _, _, info = self.step(2)
+            elif k == ord("a"):
+                _, _, _, _, info = self.step(3)
+
     def _make_rgb_img(self):
         img_rgb = np.zeros((self._side, self._side, 3), dtype=np.uint8)
         if self._wall_rule != WallRule.THROUGH:
@@ -239,12 +273,18 @@ if __name__ == "__main__":
     obs, _ = env.reset()
     print(env)
 
-    terminated = False
-    truncated = False
+    MODE = "AUTO"
 
-    while not (terminated or truncated):
-        _, _, terminated, truncated, _ = env.step(np.random.randint(low=0, high=env._ACTION_SPACE_SIZE, size=(1,), dtype=int))
-        env.render()
+    if MODE == "PLAY":
+        env.play()
+    else:
+        terminated = False
+        truncated = False
 
-    env.close()
+        while not (terminated or truncated):
+            _, _, terminated, truncated, _ = env.step(np.random.randint(low=0, high=env._ACTION_SPACE_SIZE, size=(1,), dtype=int))
+            env.render()
+
+    time.sleep(0.5)
     cv2.destroyAllWindows()
+    env.close()
