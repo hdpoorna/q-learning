@@ -35,7 +35,9 @@ plt.title('Rewards')
 plt.xlabel("Episode")
 plt.ylabel("Reward")
 plt.xticks(list(range(0, len(rewards)+1, window_size*10)))
-
+plt.savefig(f"../results/{QTABLE_ID}/rewards.svg")
+# plt.close()
+print("rewards.svg saved")
 
 # EXPLORATION
 explorations = np.load(f"../results/{QTABLE_ID}/explorations.npy")
@@ -45,6 +47,10 @@ plt.plot(x, explorations, color="b")
 plt.title('Exploration')
 plt.xlabel("Episode")
 plt.ylabel("Rate")
+plt.ylim(None, 1)
 plt.xticks(list(range(0, len(x)+1, window_size*10)))
+plt.savefig(f"../results/{QTABLE_ID}/explorations.svg")
+# plt.close()
+print("explorations.svg saved")
 
 plt.show()

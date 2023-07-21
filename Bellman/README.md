@@ -8,6 +8,8 @@
 |:----------------------------------------------------------------:|:----------------------------------------------------------------:|
 | ![](results/default-2023-07-13-08-51-31/2023-07-21-08-18-03.gif) | ![](results/exploit-2023-07-12-05-19-03/2023-07-21-08-19-21.gif) |
 
+Look into the [Graphs](#graphs) section for more info.
+
 ### Requirements
 The [following packages](requirements.txt) were used with Python 3.10+.
 ```
@@ -39,6 +41,15 @@ The above commands will do the following.
 - Load the trained default Q-table.
 - Play 1 game and visualize.
 - Save the video as a `gif` to `results/{QTABLE_ID}`
+
+### Graphs
+
+|             Stat              |                          default                          |                          greedy                           |
+|:-----------------------------:|:---------------------------------------------------------:|:---------------------------------------------------------:|
+| episode reward (moving stats) |   ![](results/default-2023-07-13-08-51-31/rewards.svg)    |   ![](results/exploit-2023-07-12-05-19-03/rewards.svg)    |
+|       exploration rate        | ![](results/default-2023-07-13-08-51-31/explorations.svg) | ![](results/exploit-2023-07-12-05-19-03/explorations.svg) |
+
+Greedy (exploration rate = 0.0) found a solution and stuck to it.
 
 ### Notes
 - [test_env.py](helpers/test_env.py) can be used to initially explore the environment.
