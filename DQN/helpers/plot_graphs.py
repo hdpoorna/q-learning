@@ -66,7 +66,7 @@ for i in range(len(losses)):
     loss_maxs[i] = np.max(row)
     loss_means[i] = np.mean(row)
 
-START = 11
+START = 0
 END = len(losses)
 
 xs = list(range(START, END))
