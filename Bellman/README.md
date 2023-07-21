@@ -26,11 +26,11 @@ _(Assuming the requirements are fulfilled)_
 python train.py
 ```
 The above commands will do the following.
-- Initialize a Q-table from random normal distribution with mean -1.0 and standard deviation 0.5
+- [Initialize a Q-table](helpers/q_table_helper.py?plain=1#L10) from random normal distribution with mean -1.0 and standard deviation 0.5
 - Start updating the Q-table with the [default training configurations](helpers/config.py).
 - Write the configurations to `results/{QTABLE_ID}/{QTABLE_ID}.txt`
 - Save the **rewards** and **exploration rate (epsilon)** as `npy` files to `results/{QTABLE_ID}/`
-- Save the Q-tables as `npy` files to `q_tables/{QTABLE_ID}`
+- Save the Q-tables as `npy` files to `q_tables/{QTABLE_ID}/`
 
 ### Quickstart to Testing
 _(Assuming the requirements are fulfilled)_
@@ -40,7 +40,7 @@ python test.py
 The above commands will do the following.
 - Load the trained default Q-table.
 - Play 1 game and visualize.
-- Save the video as a `gif` to `results/{QTABLE_ID}`
+- Save the video as a `gif` to `results/{QTABLE_ID}/`
 
 ### Graphs
 

@@ -33,6 +33,9 @@ plt.title('Rewards')
 plt.xlabel("Episode")
 plt.ylabel("Reward")
 plt.xticks(list(range(0, len(rewards)+1, window_size*10)))
+plt.savefig(f"../results/{MODEL_ID}/rewards.svg")
+# plt.close()
+print("rewards.svg saved")
 
 # EXPLORATION
 explorations = np.load(f"../results/{MODEL_ID}/explorations.npy")
@@ -42,7 +45,11 @@ plt.plot(x, explorations, color="b")
 plt.title('Exploration')
 plt.xlabel("Episode")
 plt.ylabel("Rate")
+plt.ylim(None, 1)
 plt.xticks(list(range(0, len(x)+1, window_size*10)))
+plt.savefig(f"../results/{MODEL_ID}/explorations.svg")
+# plt.close()
+print("explorations.svg saved")
 
 # LOSS
 
@@ -73,5 +80,8 @@ plt.title('Loss')
 plt.xlabel("Episode")
 plt.ylabel("Loss")
 # plt.xticks(list(range(0, len(x)+1, window_size*10)))
+plt.savefig(f"../results/{MODEL_ID}/loss.svg")
+# plt.close()
+print("loss.svg saved")
 
 plt.show()
