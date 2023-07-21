@@ -1,6 +1,9 @@
 # Grid World
 
-A custom environment was made.
+A [custom environment](gridWorld.py) was made.
+- Agent: Blue
+- Goal: Green
+- Wall: Red (optional)
 
 ### Results
 
