@@ -173,4 +173,4 @@ def write_to_txt(model_id, model_summary):
 
 if __name__ == "__main__":
     buffer = ReplayBuffer(buffer_size=32)
-    model = ConvModel(zero_padding=False, deeper=False, batch_norm=True)
+    model = ConvModel(zero_padding=False, deeper=True, batch_norm=True)

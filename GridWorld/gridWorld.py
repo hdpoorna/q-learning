@@ -187,6 +187,7 @@ class GridWorld:
         img_bgr = cv2.cvtColor(img_rgb, cv2.COLOR_RGB2BGR)
         cv2.imshow("GridWorld", img_bgr)
         cv2.waitKey(1000//self.MAX_FPS)
+        return img_rgb
 
     def _make_rgb_img(self):
         img_rgb = np.zeros((self._side, self._side, 3), dtype=np.uint8)
@@ -233,7 +234,7 @@ class GridWorld:
 
 if __name__ == "__main__":
     env = GridWorld(wall_rule=WallRule.THROUGH)
-    env.MAX_FPS = 24
+    env.MAX_FPS = 6
     obs, _ = env.reset()
     print(env)
 
