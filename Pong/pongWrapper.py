@@ -170,5 +170,6 @@ if __name__ == "__main__":
             steps = 0
             # break
 
+    cv2.destroyAllWindows()
     env.close()
 

@@ -241,5 +241,8 @@ if __name__ == "__main__":
     truncated = False
 
     while not (terminated or truncated):
-        _, _, terminated, truncated, _ = env.step(np.random.randint(low=0, high=4, size=(1,), dtype=int))
+        _, _, terminated, truncated, _ = env.step(np.random.randint(low=0, high=env._ACTION_SPACE_SIZE, size=(1,), dtype=int))
         env.render()
+
+    env.close()
+    cv2.destroyAllWindows()

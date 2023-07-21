@@ -56,7 +56,7 @@ now_utc = datetime.utcnow()
 now_str = now_utc.strftime("%Y-%m-%d-%H-%M-%S")
 gif_path = "{}/{}.gif".format(results_dir, now_str)
 
-imageio.mimsave(gif_path, frames, duration=1000/env.metadata["render_fps"])
+imageio.mimsave(gif_path, frames, duration=1000/env.metadata["render_fps"], loop=0)
 print(f"gif saved to {gif_path}")
 
 cv2.destroyAllWindows()

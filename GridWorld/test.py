@@ -5,6 +5,7 @@ hdpoorna
 
 # import packages
 import os
+import cv2
 from gridWorld import *
 import numpy as np
 import tensorflow as tf
@@ -40,5 +41,6 @@ while not (terminated or truncated):
     env.render()
     current_state = obs
 
+cv2.destroyAllWindows()
 env.close()
 

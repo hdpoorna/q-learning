@@ -2,6 +2,12 @@
 
 [Gymnasium Mountain Car](https://gymnasium.farama.org/environments/classic_control/mountain_car/) environment was used.
 
+### Results
+
+|                             default                              |                              greedy                              |
+|:----------------------------------------------------------------:|:----------------------------------------------------------------:|
+| ![](results/default-2023-07-13-08-51-31/2023-07-21-08-18-03.gif) | ![](results/exploit-2023-07-12-05-19-03/2023-07-21-08-19-21.gif) |
+
 ### Requirements
 The [following packages](requirements.txt) were used with Python 3.10+.
 ```
