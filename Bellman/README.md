@@ -29,3 +29,11 @@ _(Assuming the requirements are fulfilled)_
 python test.py
 ```
 The above commands will load the trained default Q-table and play 1 game.
+
+### Notes
+- [test_env.py](helpers/test_env.py) can be used to initially explore the environment.
+- [play_mt_car.py](helpers/play_mt_car.py) can be used to control the car with the following keys and play.
+  - a: left
+  - s: do nothing
+  - d: right
+- [plot_graphs.py](helpers/plot_graphs.py) can be used to plot graphs from the saved `rewards.npy` and `explorations.npy` files.
