@@ -11,18 +11,19 @@ import cv2
 
 
 class WallRule(Enum):
+    # when agent coincides
     TERMINATE = 0
     PENALIZE = 1
-    THROUGH = 2
+    THROUGH = 2     # do nothing
 
 
 class GridWorld:
 
     _ACTION_SPACE_SIZE = 4
     _COLORS_RGB = {
-        "WALL": (255, 0, 0),
-        "GOAL": (0, 255, 0),
-        "AGENT": (0, 0, 255)
+        "WALL": (255, 0, 0),        # red
+        "GOAL": (0, 255, 0),        # green
+        "AGENT": (0, 0, 255)        # blue
     }
     MOVE_REWARD = -1.0
     MAX_FPS = 100       # <= 1000
