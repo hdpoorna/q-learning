@@ -82,3 +82,4 @@ You can play by using the [play](gridWorld.py?plain=1#L194) method in `GridWorld
   - d: right
   - s: down
   - a: left
+  - esc: quit
