@@ -2,10 +2,10 @@
 
 ### Experimenting With Multiple Reinforcement Learning Environments and Approaches
 
-- [Updating a Q-table with the Bellman equation](Bellman/train.py)
-- [Deep Q-Networks](DQN/train.py)
-- [Grid World](GridWorld/gridWorld.py)
-- [Atari Pong](Pong/pongWrapper.py)
+- [Updating a Q-table with the Bellman equation](Bellman/)
+- [Deep Q-Networks](DQN/)
+- [Grid World](GridWorld/)
+- [Atari Pong](Pong/)
 
 ### References
 - [Gymnasium Documentation](https://gymnasium.farama.org/)
