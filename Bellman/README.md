@@ -6,6 +6,7 @@
 The [following packages](requirements.txt) were used with Python 3.10+.
 ```
 gymnasium[classic-control]
+opencv-python
 numpy
 pandas
 matplotlib
@@ -28,7 +29,10 @@ _(Assuming the requirements are fulfilled)_
 ```
 python test.py
 ```
-The above commands will load the trained default Q-table and play 1 game.
+The above commands will do the following.
+- Load the trained default Q-table.
+- Play 1 game and visualize.
+- Save the video as a `gif` to `results/{QTABLE_ID}`
 
 ### Notes
 - [test_env.py](helpers/test_env.py) can be used to initially explore the environment.
