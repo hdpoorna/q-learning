@@ -4,13 +4,17 @@ hdpoorna
 """
 
 # import packages
+import imageio
+import cv2
+from datetime import datetime
 import gymnasium as gym
 import numpy as np
 from helpers import config
 from helpers.q_table_helper import *
 
 # make the env
-env = gym.make("MountainCar-v0", render_mode="human")
+env = gym.make("MountainCar-v0", render_mode="rgb_array")
+env.metadata["render_fps"] = 30
 
 # set constants
 config.OBS_HIGHS = env.observation_space.high
@@ -28,12 +32,32 @@ state_bucket = get_state_bucket(env.reset()[0], config.OBS_LOWS, config.BUCKET_S
 terminated = False      # goal achieved
 truncated = False       # timed out
 
+frames = [env.render()]
+
 while not (terminated or truncated):
 
     action = np.argmax(q_table[state_bucket])
     obs, reward, terminated, truncated, _ = env.step(action)
-    env.render()
+
+    frame_rgb = env.render()
+    frames.append(frame_rgb)
+    frame_bgr = cv2.cvtColor(frame_rgb, cv2.COLOR_RGB2BGR)
+    cv2.imshow("Car", frame_bgr)
+    cv2.waitKey(1000 // env.metadata["render_fps"])
+
     new_state_bucket = get_state_bucket(obs, config.OBS_LOWS, config.BUCKET_SIZES)
     state_bucket = new_state_bucket
 
+
+results_dir = f"results/{QTABLE_ID}"
+make_dir(results_dir)
+
+now_utc = datetime.utcnow()
+now_str = now_utc.strftime("%Y-%m-%d-%H-%M-%S")
+gif_path = "{}/{}.gif".format(results_dir, now_str)
+
+imageio.mimsave(gif_path, frames, duration=1000/env.metadata["render_fps"])
+print(f"gif saved to {gif_path}")
+
+cv2.destroyAllWindows()
 env.close()
