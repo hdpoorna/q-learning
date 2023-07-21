@@ -46,11 +46,11 @@ The above commands will do the following.
 
 ### Graphs
 
-|             Stat              |                               default                                |                                greedy                                |
-|:-----------------------------:|:--------------------------------------------------------------------:|:--------------------------------------------------------------------:|
-| episode reward (moving stats) |   ![](results/adam-huber-default-2023-07-12-17-46-05/rewards.svg)    |   ![](results/adam-huber-exploit-2023-07-14-07-54-45/rewards.svg)    |
-|       exploration rate        | ![](results/adam-huber-default-2023-07-12-17-46-05/explorations.svg) | ![](results/adam-huber-exploit-2023-07-14-07-54-45/explorations.svg) |
-|             loss              |     ![](results/adam-huber-default-2023-07-12-17-46-05/loss.svg)     |     ![](results/adam-huber-exploit-2023-07-14-07-54-45/loss.svg)     |
+|                Stat                |                               default                                |                                greedy                                |
+|:----------------------------------:|:--------------------------------------------------------------------:|:--------------------------------------------------------------------:|
+| episode reward <br/>(moving stats) |   ![](results/adam-huber-default-2023-07-12-17-46-05/rewards.svg)    |   ![](results/adam-huber-exploit-2023-07-14-07-54-45/rewards.svg)    |
+|          exploration rate          | ![](results/adam-huber-default-2023-07-12-17-46-05/explorations.svg) | ![](results/adam-huber-exploit-2023-07-14-07-54-45/explorations.svg) |
+|     loss <br/>(episode stats)      |     ![](results/adam-huber-default-2023-07-12-17-46-05/loss.svg)     |     ![](results/adam-huber-exploit-2023-07-14-07-54-45/loss.svg)     |
 
 By exploring, default configurations found a better solution.
 
