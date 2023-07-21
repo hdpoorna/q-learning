@@ -29,7 +29,7 @@ The above commands will do the following.
 - Initialize a Q-table from random normal distribution with mean -1.0 and standard deviation 0.5
 - Start updating the Q-table with the [default training configurations](helpers/config.py).
 - Write the configurations to `results/{QTABLE_ID}/{QTABLE_ID}.txt`
-- Save the **rewards** and **exploration rate epsilon** as `npy` files to `results/{QTABLE_ID}/`
+- Save the **rewards** and **exploration rate (epsilon)** as `npy` files to `results/{QTABLE_ID}/`
 - Save the Q-tables as `npy` files to `q_tables/{QTABLE_ID}`
 
 ### Quickstart to Testing
@@ -57,4 +57,4 @@ Greedy (exploration rate = 0.0) found a solution and stuck to it.
   - a: left
   - s: do nothing
   - d: right
-- [plot_graphs.py](helpers/plot_graphs.py) can be used to plot graphs from the saved `rewards.npy` and `explorations.npy` files.
+- [plot_graphs.py](helpers/plot_graphs.py) can be used to plot graphs from the `rewards.npy` and `explorations.npy` files, and save them as `svg`.
