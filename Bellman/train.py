@@ -5,6 +5,7 @@ hdpoorna
 
 # import packages
 import os
+from tqdm import tqdm
 from datetime import datetime
 import gymnasium as gym
 import numpy as np
@@ -63,7 +64,7 @@ explorations = np.zeros(config.EPISODES, dtype=np.float32)
 
 
 print("training starting!")
-for episode in range(config.EPISODES):
+for episode in tqdm(range(config.EPISODES), ascii=True, unit="episodes"):
     # get initial state
     state_bucket = get_state_bucket(env.reset()[0], config.OBS_LOWS, config.BUCKET_SIZES)
 

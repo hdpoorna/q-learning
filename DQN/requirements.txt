@@ -1,7 +1,8 @@
-gymnasium[classic-control]
-opencv-python
-numpy
-pandas
-matplotlib
-tensorflow
-tqdm
+
+gymnasium[classic-control]==0.28.1
+opencv-python==4.8.0.74
+numpy==1.24.3
+pandas==2.0.3
+matplotlib==3.7.2
+tensorflow==2.13.0
+tqdm==4.65.0

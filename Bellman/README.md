@@ -11,13 +11,18 @@
 Look into the [Graphs](#graphs) section for more info.
 
 ### Requirements
-The [following packages](requirements.txt) were used with Python 3.10+.
+To install,
 ```
-gymnasium[classic-control]
-opencv-python
-numpy
-pandas
-matplotlib
+pip install -r requirements.txt
+```
+The [following packages](requirements.txt) were used with Python 3.10+. Feel free to experiment with different versions.
+```
+gymnasium[classic-control]==0.28.1
+opencv-python==4.8.0.74
+numpy==1.24.3
+pandas==2.0.3
+matplotlib==3.7.2
+tqdm==4.65.0
 ```
 
 ### Quickstart to Training
