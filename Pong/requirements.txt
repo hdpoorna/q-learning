@@ -1,5 +1,6 @@
 
 gymnasium[atari,accept-rom-license]
+opencv-python
 numpy
 pandas
 matplotlib

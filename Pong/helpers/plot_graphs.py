@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
 
-MODEL_ID = "pong-conv-greedy-2023-07-20-16-53-20"
+MODEL_ID = "pong-conv-default-2023-07-19-16-41-16"
 
 # REWARDS
 rewards = pd.Series(np.load(f"../results/{MODEL_ID}/rewards.npy"))
@@ -33,6 +33,9 @@ plt.title('Rewards')
 plt.xlabel("Episode")
 plt.ylabel("Reward")
 plt.xticks(list(range(0, len(rewards)+1, window_size*10)))
+plt.savefig(f"../results/{MODEL_ID}/rewards.svg")
+# plt.close()
+print("rewards.svg saved")
 
 # EXPLORATION
 explorations = np.load(f"../results/{MODEL_ID}/explorations.npy")
@@ -42,7 +45,11 @@ plt.plot(x, explorations, color="b")
 plt.title('Exploration')
 plt.xlabel("Episode")
 plt.ylabel("Rate")
+plt.ylim(None, 1)
 plt.xticks(list(range(0, len(x)+1, window_size*10)))
+plt.savefig(f"../results/{MODEL_ID}/explorations.svg")
+# plt.close()
+print("explorations.svg saved")
 
 # LOSS
 
@@ -59,7 +66,7 @@ for i in range(len(losses)):
     loss_maxs[i] = np.max(row)
     loss_means[i] = np.mean(row)
 
-START = 11
+START = 0
 END = len(losses)
 
 xs = list(range(START, END))
@@ -73,5 +80,8 @@ plt.title('Loss')
 plt.xlabel("Episode")
 plt.ylabel("Loss")
 # plt.xticks(list(range(0, len(x)+1, window_size*10)))
+plt.savefig(f"../results/{MODEL_ID}/loss.svg")
+# plt.close()
+print("loss.svg saved")
 
 plt.show()

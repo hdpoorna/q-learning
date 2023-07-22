@@ -36,7 +36,7 @@ class PongWrapper:
         "BEGIN": 34,
         "END": 194
     }
-    MAX_FPS = 100
+    MAX_FPS = 30
 
     def __init__(self, render_mode=None, points_per_episode=3):
 
@@ -48,8 +48,7 @@ class PongWrapper:
         self._render_mode = render_mode
 
         self._env = gym.make("ALE/Pong-v5", mode=0, difficulty=0, obs_type="rgb", full_action_space=False, render_mode=self._render_mode)
-        if self._render_mode == "human":
-            self._env.metadata["render_fps"] = 30
+        self._env.metadata["render_fps"] = 30
 
         self._step_count = None
 
@@ -131,9 +130,9 @@ class PongWrapper:
 
     def render(self):
         assert self._step_count is not None, "reset method should be called first to initialize the environment"
-        assert self._render_mode == "human", "render_mode is not set to human. Recreate."
+        # assert self._render_mode == "human", "render_mode is not set to human. Recreate."
 
-        self._env.render()
+        return self._env.render()
 
     def render_cv(self, obs):
         assert self._step_count is not None, "reset method should be called first to initialize the environment"
@@ -142,11 +141,12 @@ class PongWrapper:
         img_bgr = cv2.cvtColor(img_rgb, cv2.COLOR_RGB2BGR)
         cv2.imshow("Pong", img_bgr)
         cv2.waitKey(1000 // self.MAX_FPS)
+        return img_rgb
 
 
 if __name__ == "__main__":
     env = PongWrapper(render_mode=None, points_per_episode=1)
-    env.MAX_FPS = 100
+    # env.MAX_FPS = 100
 
     init_state, _ = env.reset()
 

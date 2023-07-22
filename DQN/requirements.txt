@@ -1,4 +1,5 @@
 gymnasium[classic-control]
+opencv-python
 numpy
 pandas
 matplotlib
