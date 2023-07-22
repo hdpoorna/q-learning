@@ -54,7 +54,7 @@ The above commands will do the following.
 |          exploration rate          | ![](results/gw-conv-through-2023-07-18-17-32-23/explorations.svg) |
 |     loss <br/>(episode stats)      |     ![](results/gw-conv-through-2023-07-18-17-32-23/loss.svg)     |
 
-It seems the model can be further trained. However, [Google Colab](https://colab.research.google.com) compute time limits had to be concerned.
+It seems the model can be further trained. However, [Google Colab](https://colab.research.google.com) compute time limits had to be considered.
 
 ### Notes
 - [gridWorld.py](gridWorld.py) can be used to initially explore the environment.
@@ -77,7 +77,7 @@ You can play by using the [play](gridWorld.py?plain=1#L194) method in `GridWorld
 - [Initialize](gridWorld.py?plain=1#L271-L279) the environment.
 - Set the `MODE` to `PLAY`, if you're using `gridWorld.py` file itself as the entry point.
 - Call `play` method.
-- key: action map
+- key: action map (clockwise)
   - w: up
   - d: right
   - s: down

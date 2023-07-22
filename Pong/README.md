@@ -57,7 +57,7 @@ Truncated to 1 point per game (episode) and 500 average frames per point.
 |          exploration rate          | ![](results/pong-conv-default-2023-07-19-16-41-16/explorations.svg) | ![](results/pong-conv-greedy-2023-07-20-16-53-20/explorations.svg) |
 |     loss <br/>(episode stats)      |     ![](results/pong-conv-default-2023-07-19-16-41-16/loss.svg)     |     ![](results/pong-conv-greedy-2023-07-20-16-53-20/loss.svg)     |
 
-It seems the model can be further trained. However, [Google Colab](https://colab.research.google.com) compute time limits had to be concerned.
+It seems the model can be further trained. However, [Google Colab](https://colab.research.google.com) compute time limits had to be considered.
 
 ### Notes
 - [test_env.py](helpers/test_env.py) can be used to initially explore the environment.
