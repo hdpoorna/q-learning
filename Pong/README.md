@@ -61,6 +61,8 @@ It seems the model can be further trained. However, [Google Colab](https://colab
 
 ### Notes
 - [test_env.py](helpers/test_env.py) can be used to initially explore the environment.
+- Original [Gymnasium Pong](https://gymnasium.farama.org/environments/atari/pong/) environment `reset()` method returns different colors than the rest of the frames.
+Therefore, in the [wrapper reset() method](pongWrapper.py?plain=1#L74), another `NOOP` (do nothing) step is taken.
 - [play_pong.py](helpers/play_pong.py) can be used to control the right paddle with the following keys and play.
   - a: do nothing
   - w: up

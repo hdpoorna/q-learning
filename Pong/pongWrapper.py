@@ -66,6 +66,13 @@ class PongWrapper:
 
         obs, info = self._env.reset()
 
+        """
+        reset returns different colors than rest of the frames.
+        Therefore, take another NOOP step.
+        """
+
+        obs, _, _, _, info = self._env.step(self._ACTION_MAP[0])
+
         return self._preprocess_obs(obs), info
 
     def close(self):

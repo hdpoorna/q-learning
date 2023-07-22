@@ -32,8 +32,8 @@ current_state = env.reset()[0]
 terminated = False      # goal achieved
 truncated = False       # timed out
 
-frames_orig = []
-frames_mod = []
+frames_orig = [env.render()]
+frames_mod = [env.render_cv(current_state)]
 
 while not (terminated or truncated):
     qs = policy_model(inputs=[scale_states(current_state)], training=False)
